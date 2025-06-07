@@ -1,5 +1,6 @@
 package com.example.projectakhirtis.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,7 @@ import com.example.projectakhirtis.R
 import com.example.projectakhirtis.helper.TokenManager
 import com.example.projectakhirtis.model.Ticket
 import com.example.projectakhirtis.network.ApiClient
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,6 +22,7 @@ class AddTicketActivity : AppCompatActivity() {
     private lateinit var etRuteKeberangkatan: EditText
     private lateinit var etRuteTujuan: EditText
     private lateinit var btnSubmit: Button
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +35,7 @@ class AddTicketActivity : AppCompatActivity() {
         etRuteKeberangkatan = findViewById(R.id.etRuteKeberangkatan)
         etRuteTujuan = findViewById(R.id.etRuteTujuan)
         btnSubmit = findViewById(R.id.btnSubmit)
+        bottomNavigationView = findViewById(R.id.bottomNavigation)
 
         btnSubmit.setOnClickListener {
             val ticket = Ticket(
@@ -43,8 +47,33 @@ class AddTicketActivity : AppCompatActivity() {
                 rute_keberangkatan = etRuteKeberangkatan.text.toString(),
                 rute_tujuan = etRuteTujuan.text.toString()
             )
-
             addTicket(ticket)
+        }
+
+        setupBottomNavigation()
+        bottomNavigationView.selectedItemId = R.id.menu_profile
+    }
+
+    private fun setupBottomNavigation() {
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.menu_home -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    true
+                }
+                R.id.menu_kalender -> {
+                    Toast.makeText(this, "Menu Jadwal belum tersedia", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.menu_tambah -> {
+                    true
+                }
+                R.id.menu_profile -> {
+                    startActivity(Intent(this, ProfileActivity::class.java))
+                    true
+                }
+                else -> false
+            }
         }
     }
 
@@ -86,4 +115,6 @@ class AddTicketActivity : AppCompatActivity() {
             }
         }
     }
+
+
 }

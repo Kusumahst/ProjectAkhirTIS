@@ -25,7 +25,11 @@ class LoginActivity : AppCompatActivity() {
         fun login(@Body credentials: Map<String, String>): Call<AuthResponse>
     }
 
-    data class AuthResponse(val token: String?)
+    data class AuthResponse(
+        val token: String?,
+        val name: String?,
+        val email: String?
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,8 +60,21 @@ class LoginActivity : AppCompatActivity() {
             service.login(body).enqueue(object : Callback<AuthResponse> {
                 override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                     if (response.isSuccessful && response.body()?.token != null) {
-                        val token = response.body()!!.token!!
+                        val data = response.body()!!
+                        val token = data.token!!
+                        val name = data.name ?: ""
+                        val email = data.email ?: ""
+
+                        // Simpan token
                         TokenManager.saveToken(this@LoginActivity, token)
+
+                        // Simpan nama dan email ke SharedPreferences
+                        val prefs = getSharedPreferences("APP_PREFS", MODE_PRIVATE)
+                        prefs.edit()
+                            .putString("USER_NAME", name)
+                            .putString("USER_EMAIL", email)
+                            .apply()
+
                         Toast.makeText(this@LoginActivity, "Login sukses", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                         finish()

@@ -16,8 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectAkhirTIS"
         tools:targetApi="31">
-
-        <!-- LoginActivity jadi launcher -->
         <activity
             android:name=".ui.auth.LoginActivity"
             android:exported="true">
@@ -30,6 +28,9 @@
         <!-- Halaman lain -->
         <activity
             android:name=".ui.main.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.ProfileActivity"
             android:exported="false" />
         <activity
             android:name=".ui.auth.RegisterActivity"
