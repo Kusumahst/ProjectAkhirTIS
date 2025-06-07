@@ -35,7 +35,6 @@ class AddTicketActivity : AppCompatActivity() {
         etRuteKeberangkatan = findViewById(R.id.etRuteKeberangkatan)
         etRuteTujuan = findViewById(R.id.etRuteTujuan)
         btnSubmit = findViewById(R.id.btnSubmit)
-        bottomNavigationView = findViewById(R.id.bottomNavigation)
 
         btnSubmit.setOnClickListener {
             val ticket = Ticket(
@@ -47,11 +46,12 @@ class AddTicketActivity : AppCompatActivity() {
                 rute_keberangkatan = etRuteKeberangkatan.text.toString(),
                 rute_tujuan = etRuteTujuan.text.toString()
             )
+
             addTicket(ticket)
         }
 
         setupBottomNavigation()
-        bottomNavigationView.selectedItemId = R.id.menu_profile
+        bottomNavigationView.selectedItemId = R.id.menu_tambah
     }
 
     private fun setupBottomNavigation() {
@@ -76,7 +76,6 @@ class AddTicketActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun addTicket(ticket: Ticket) {
         val token = TokenManager.getToken(this)
 
@@ -115,6 +114,4 @@ class AddTicketActivity : AppCompatActivity() {
             }
         }
     }
-
-
 }

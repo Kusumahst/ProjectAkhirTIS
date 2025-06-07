@@ -5,13 +5,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.MainActivity">
+    android:background="@android:color/white"
+    tools:context=".ui.main.AddTicketActivity">
 
-    <!-- Konten ScrollView -->
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blue"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingStart="16dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tambah Tiket"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:fontFamily="@font/plus_jakarta" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Konten Scrollable -->
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:background="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -20,36 +46,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="16dp">
-
-            <!-- Toolbar -->
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/blue"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                android:paddingStart="16dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tambah Tiket"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:fontFamily="@font/plus_jakarta"/>
-            </androidx.appcompat.widget.Toolbar>
+            android:padding="16dp"
+            android:background="@android:color/white">
 
             <!-- Form Card -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
                 app:cardElevation="6dp"
                 app:cardCornerRadius="12dp"
-                android:layout_gravity="center">
+                android:layout_marginBottom="16dp"
+                android:background="@android:color/white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -66,7 +73,8 @@
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/plus_jakarta"
-                        android:layout_marginTop="8dp"/>
+                        android:layout_marginTop="8dp" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -76,7 +84,8 @@
                             android:id="@+id/etNamaBus"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp"
+                            android:hint="Contoh: Bus Raya" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <!-- Harga -->
@@ -88,7 +97,8 @@
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/plus_jakarta"
-                        android:layout_marginTop="8dp"/>
+                        android:layout_marginTop="8dp" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -98,7 +108,9 @@
                             android:id="@+id/etHarga"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"/>
+                            android:inputType="number"
+                            android:textSize="14sp"
+                            android:hint="Contoh: 150000" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <!-- Fasilitas -->
@@ -110,7 +122,8 @@
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/plus_jakarta"
-                        android:layout_marginTop="8dp"/>
+                        android:layout_marginTop="8dp" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -120,7 +133,8 @@
                             android:id="@+id/etFasilitas"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp"
+                            android:hint="Contoh: AC, Wifi, Toilet" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <!-- Waktu Berangkat -->
@@ -132,7 +146,8 @@
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/plus_jakarta"
-                        android:layout_marginTop="8dp"/>
+                        android:layout_marginTop="8dp" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -142,8 +157,9 @@
                             android:id="@+id/etWaktuBerangkat"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="00:00"
-                            android:textSize="14sp"/>
+                            android:inputType="time"
+                            android:textSize="14sp"
+                            android:hint="Contoh: 08:30" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <!-- Rute Keberangkatan -->
@@ -155,7 +171,8 @@
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/plus_jakarta"
-                        android:layout_marginTop="8dp"/>
+                        android:layout_marginTop="8dp" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -165,7 +182,8 @@
                             android:id="@+id/etRuteKeberangkatan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp"
+                            android:hint="Contoh: Jakarta" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <!-- Rute Tujuan -->
@@ -177,7 +195,8 @@
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/plus_jakarta"
-                        android:layout_marginTop="8dp"/>
+                        android:layout_marginTop="8dp" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -187,8 +206,10 @@
                             android:id="@+id/etRuteTujuan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp"
+                            android:hint="Contoh: Surabaya" />
                     </com.google.android.material.textfield.TextInputLayout>
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -201,24 +222,22 @@
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="@color/blue"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@font/plus_jakarta"/>
+                android:fontFamily="@font/plus_jakarta" />
         </LinearLayout>
     </ScrollView>
 
-    <!-- BottomNavigationView Fix di Bawah -->
+    <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         app:menu="@menu/footer"
+        android:elevation="20dp"
         app:itemIconTint="@color/blue"
         app:itemTextColor="@color/blue"
         app:labelVisibilityMode="labeled"
-        android:elevation="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

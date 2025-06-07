@@ -65,7 +65,8 @@ class ProfileActivity : AppCompatActivity() {
                     startActivity(Intent(this, AddTicketActivity::class.java))
                     true
                 }
-                R.id.menu_profile -> true
+                R.id.menu_profile -> {true
+                }
                 else -> false
             }
         }
