@@ -15,6 +15,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class AddTicketActivity : AppCompatActivity() {
+
+    private lateinit var etIdTiket: EditText
     private lateinit var etNamaBus: EditText
     private lateinit var etHarga: EditText
     private lateinit var etFasilitas: EditText
@@ -28,6 +30,7 @@ class AddTicketActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_ticket)
 
+        etIdTiket = findViewById(R.id.etIdTiket)
         etNamaBus = findViewById(R.id.etNamaBus)
         etHarga = findViewById(R.id.etHarga)
         etFasilitas = findViewById(R.id.etFasilitas)
@@ -35,10 +38,11 @@ class AddTicketActivity : AppCompatActivity() {
         etRuteKeberangkatan = findViewById(R.id.etRuteKeberangkatan)
         etRuteTujuan = findViewById(R.id.etRuteTujuan)
         btnSubmit = findViewById(R.id.btnSubmit)
+        bottomNavigationView = findViewById(R.id.bottomNavigation)
 
         btnSubmit.setOnClickListener {
             val ticket = Ticket(
-                id_tiket = "", // biarkan kosong, biasanya di-generate server
+                id_tiket = etIdTiket.text.toString(),
                 nama_bus = etNamaBus.text.toString(),
                 harga = etHarga.text.toString().toIntOrNull() ?: 0,
                 fasilitas = etFasilitas.text.toString(),
@@ -65,9 +69,7 @@ class AddTicketActivity : AppCompatActivity() {
                     Toast.makeText(this, "Menu Jadwal belum tersedia", Toast.LENGTH_SHORT).show()
                     true
                 }
-                R.id.menu_tambah -> {
-                    true
-                }
+                R.id.menu_tambah -> true
                 R.id.menu_profile -> {
                     startActivity(Intent(this, ProfileActivity::class.java))
                     true
@@ -76,6 +78,7 @@ class AddTicketActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun addTicket(ticket: Ticket) {
         val token = TokenManager.getToken(this)
 

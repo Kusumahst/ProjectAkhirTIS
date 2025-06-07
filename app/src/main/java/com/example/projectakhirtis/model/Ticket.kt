@@ -1,7 +1,7 @@
 package com.example.projectakhirtis.model
 
 data class Ticket(
-    val id_tiket: String,
+    val id_tiket: String?,
     val nama_bus: String,
     val harga: Int,
     val fasilitas: String,
