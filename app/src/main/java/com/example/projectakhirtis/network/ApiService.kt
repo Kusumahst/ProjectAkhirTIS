@@ -4,20 +4,17 @@ import com.example.projectakhirtis.model.GeneralResponse
 import com.example.projectakhirtis.model.LoginResponse
 import com.example.projectakhirtis.model.RegisterRequest
 import com.example.projectakhirtis.model.Ticket
+import okhttp3.ResponseBody
+import retrofit2.Call
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
-import retrofit2.http.PUT
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface ApiService {
+
     @GET("tickets")
-    suspend fun getTickets(): List<Ticket>
+    suspend fun getTickets(
+        @Header("Authorization") token: String
+    ): Response<List<Ticket>>
 
     @POST("auth/register")
     suspend fun register(
@@ -31,21 +28,9 @@ interface ApiService {
         @Field("password") password: String
     ): LoginResponse
 
-    @GET("tickets")
-    suspend fun getTickets(
-        @Header("Authorization") token: String
-    ): List<Ticket>
-
     @POST("tickets")
     suspend fun addTicket(
         @Header("Authorization") token: String,
-        @Body ticket: Ticket
-    ): Response<GeneralResponse>
-
-    @PUT("tickets/{id}")
-    suspend fun updateTicket(
-        @Header("Authorization") token: String,
-        @Path("id") id: String,
         @Body ticket: Ticket
     ): Response<GeneralResponse>
 
@@ -54,4 +39,16 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): Response<GeneralResponse>
+
+    @PUT("tickets/{id}")
+    suspend fun updateTicket(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Body ticket: Ticket
+    ): Response<GeneralResponse>
+}
+
+interface CalendarApi {
+    @POST("calendar/add-event")
+    fun createEvent(@Body ticket: Ticket): Call<ResponseBody>
 }

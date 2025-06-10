@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rp 150.000"
-                android:textColor="#D50000"
+                android:textColor="@color/blue"
                 android:textStyle="bold"
                 android:textSize="16sp"/>
         </LinearLayout>
@@ -124,14 +124,45 @@
             android:textColor="#555555"
             android:textSize="12sp"/>
 
-        <Button
-            android:id="@+id/btnPesan"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginTop="16dp"
-            android:text="PESAN SEKARANG"
-            android:textAllCaps="true"
-            android:textColor="#000000"
-            android:backgroundTint="#DDDDDD"/>
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/btnPesan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Pesan Sekarang"
+                android:textSize="13sp"
+                android:textAllCaps="true"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="@color/blue" />
+
+            <ImageButton
+                android:id="@+id/btnEdit"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/rounded_bg"
+                android:src="@drawable/ic_edit"
+                android:backgroundTint="@color/blue"
+                android:contentDescription="Edit"
+                app:tint="@color/white" />
+
+            <ImageButton
+                android:id="@+id/btnDelete"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/rounded_bg"
+                android:src="@drawable/ic_delete"
+                android:backgroundTint="@color/blue"
+                android:contentDescription="Hapus"
+                app:tint="@color/white" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

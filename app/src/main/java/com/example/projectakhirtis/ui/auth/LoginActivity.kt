@@ -14,11 +14,10 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 class LoginActivity : AppCompatActivity() {
-
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
     private lateinit var btnLogin: Button
-    private lateinit var btnRegister: Button  // Diperbaiki: deklarasi btnRegister
+    private lateinit var btnRegister: Button
 
     interface ApiService {
         @POST("auth/login")

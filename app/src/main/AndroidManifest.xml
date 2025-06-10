@@ -4,6 +4,8 @@
     package="com.example.projectakhirtis">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
 
     <application
         android:allowBackup="true"
@@ -17,7 +19,10 @@
         android:theme="@style/Theme.ProjectAkhirTIS"
         tools:targetApi="31">
         <activity
-            android:name=".ui.main.EditActivity"
+            android:name=".ui.main.CalenderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.main.EditTicketActivity"
             android:exported="false" />
         <activity
             android:name=".ui.auth.LoginActivity"

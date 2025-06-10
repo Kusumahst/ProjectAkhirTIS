@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projectakhirtis.R
+import com.example.projectakhirtis.helper.TicketAdapter
 import com.example.projectakhirtis.helper.TokenManager
 import com.example.projectakhirtis.network.ApiClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.menu_home -> true
                 R.id.menu_kalender -> {
-                    Toast.makeText(this, "Menu Jadwal belum tersedia", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, CalenderActivity::class.java))
                     true
                 }
                 R.id.menu_tambah -> {
@@ -79,11 +80,16 @@ class MainActivity : AppCompatActivity() {
             try {
                 val response = ApiClient.apiService.getTickets("Bearer $token")
                 withContext(Dispatchers.Main) {
-                    adapter.setData(response)
+                    if (response.isSuccessful) {
+                        val tickets = response.body() ?: emptyList()
+                        adapter.setData(tickets)
+                    } else {
+                        Toast.makeText(this@MainActivity, "Gagal memuat tiket (Server)", Toast.LENGTH_SHORT).show()
+                    }
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(this@MainActivity, "Gagal memuat tiket", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MainActivity, "Gagal memuat tiket: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
                 }
             }
         }

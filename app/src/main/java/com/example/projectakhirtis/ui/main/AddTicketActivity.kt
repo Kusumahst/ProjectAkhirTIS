@@ -41,21 +41,36 @@ class AddTicketActivity : AppCompatActivity() {
         bottomNavigationView = findViewById(R.id.bottomNavigation)
 
         btnSubmit.setOnClickListener {
-            val ticket = Ticket(
-                id_tiket = etIdTiket.text.toString(),
-                nama_bus = etNamaBus.text.toString(),
-                harga = etHarga.text.toString().toIntOrNull() ?: 0,
-                fasilitas = etFasilitas.text.toString(),
-                waktu_berangkat = etWaktuBerangkat.text.toString(),
-                rute_keberangkatan = etRuteKeberangkatan.text.toString(),
-                rute_tujuan = etRuteTujuan.text.toString()
-            )
-
-            addTicket(ticket)
+            if (validateInput()) {
+                val ticket = Ticket(
+                    id_tiket = etIdTiket.text.toString(),
+                    nama_bus = etNamaBus.text.toString(),
+                    harga = etHarga.text.toString().toIntOrNull() ?: 0,
+                    fasilitas = etFasilitas.text.toString(),
+                    waktu_berangkat = etWaktuBerangkat.text.toString(),
+                    rute_keberangkatan = etRuteKeberangkatan.text.toString(),
+                    rute_tujuan = etRuteTujuan.text.toString()
+                )
+                addTicket(ticket)
+            }
         }
 
         setupBottomNavigation()
         bottomNavigationView.selectedItemId = R.id.menu_tambah
+    }
+
+    private fun validateInput(): Boolean {
+        val fields = listOf(
+            etIdTiket, etNamaBus, etHarga,
+            etFasilitas, etWaktuBerangkat, etRuteKeberangkatan, etRuteTujuan
+        )
+        for (field in fields) {
+            if (field.text.isNullOrEmpty()) {
+                field.error = "Tidak boleh kosong"
+                return false
+            }
+        }
+        return true
     }
 
     private fun setupBottomNavigation() {
